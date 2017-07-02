@@ -63,8 +63,9 @@ public class MainProfileActivity extends MainActivity implements NavigationView.
         writeMessageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(view.getContext(), FriendsActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(view.getContext(), FriendsActivity.class);
+                intent.putExtra("WithAddOrDeleteButton", "false");
+                startActivity(intent);
             }
         });
 
@@ -98,6 +99,7 @@ public class MainProfileActivity extends MainActivity implements NavigationView.
         switch(id){
             case R.id.nav_friends:
                 Intent intent = new Intent(this, FriendsActivity.class);
+                intent.putExtra("WithAddOrDeleteButton", "true");
                 startActivity(intent);
                 break;
 
