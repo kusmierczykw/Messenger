@@ -4,9 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -28,24 +26,18 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
  * Created by wojciech on 29.06.2017.
  */
 
-public class FriendsActivity extends MainActivity{
-    private static final String TAG = "FriendsActivity";
+public class FriendsFindActivity extends MainActivity{
+    private static final String TAG = "FriendsFindActivity";
 
     private ListView friendsListView;
     private FirebaseListAdapter mFriendListAdapter;
     private DatabaseReference mUsersDatabaseReference;
     private ValueEventListener mValueEventListener;
 
-    private String withAddOrDeleteButton;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friends);
-
-        //If the activity was caused by writeMessageButton will be removed buttons: user_item_add_button and user_item_remove_button
-        Intent intent = getIntent();
-        withAddOrDeleteButton = intent.getStringExtra("WithAddOrDeleteButton");
 
         initialization();
         showUsersList();
@@ -65,21 +57,11 @@ public class FriendsActivity extends MainActivity{
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if(dataSnapshot.child(encryptEmail(model.getEmail())).getValue() != null){
-                            if(withAddOrDeleteButton.equals("false")){
-                                v.findViewById(R.id.user_item_remove_button).setVisibility(View.GONE);
-                                v.findViewById(R.id.user_item_add_button).setVisibility(View.GONE);
-                            }else {
-                                v.findViewById(R.id.user_item_remove_button).setVisibility(View.VISIBLE);
-                                v.findViewById(R.id.user_item_add_button).setVisibility(View.GONE);
-                            }
+                            v.findViewById(R.id.user_item_remove_button).setVisibility(View.VISIBLE);
+                            v.findViewById(R.id.user_item_add_button).setVisibility(View.GONE);
                         }else {
-                            if(withAddOrDeleteButton.equals("false")){
-                                v.findViewById(R.id.user_item_remove_button).setVisibility(View.GONE);
-                                v.findViewById(R.id.user_item_add_button).setVisibility(View.GONE);
-                            }else {
-                                v.findViewById(R.id.user_item_remove_button).setVisibility(View.GONE);
-                                v.findViewById(R.id.user_item_add_button).setVisibility(View.VISIBLE);
-                            }
+                            v.findViewById(R.id.user_item_remove_button).setVisibility(View.GONE);
+                            v.findViewById(R.id.user_item_add_button).setVisibility(View.VISIBLE);
                         }
                     }
 
@@ -106,24 +88,13 @@ public class FriendsActivity extends MainActivity{
                     @Override
                     public void onClick(View view) {
                         Log.d(TAG, "Add user: " + model.getEmail());
-                        addFriend(model.getEmail());
+                        addFriend(model);
                     }
                 });
             }
         };
 
         friendsListView.setAdapter(mFriendListAdapter);
-        friendsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-//                startActivity(new Intent(view.getContext(), ConversationMessagesActivity.class));
-                //tworzenie nowego chatu pomiedzy uzytkownikami
-                Log.e(TAG, position+" ");
-
-
-            }
-        });
-
         mValueEventListener = mUsersDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -148,11 +119,19 @@ public class FriendsActivity extends MainActivity{
         friendReference.child(encryptEmail(friendEmail)).removeValue();
     }
 
-    private void addFriend(String newFriendEmail){
+//    private void addFriend(String newFriendEmail){
+//        final String currentUser = mAuth.getCurrentUser().getEmail();
+//        final DatabaseReference friendReference = mDatabase.getReference(Constants.FRIENDS_LOCATION + "/" + encryptEmail(currentUser));
+//        friendReference.child(encryptEmail(newFriendEmail)).setValue(newFriendEmail);
+//    }
+
+
+    private void addFriend(User user){
         final String currentUser = mAuth.getCurrentUser().getEmail();
         final DatabaseReference friendReference = mDatabase.getReference(Constants.FRIENDS_LOCATION + "/" + encryptEmail(currentUser));
-        friendReference.child(encryptEmail(newFriendEmail)).setValue(newFriendEmail);
+        friendReference.child(encryptEmail(user.getEmail())).setValue(user);
     }
+
 
     private void initialization(){
         friendsListView = (ListView) findViewById(R.id.activity_friends_find_result);

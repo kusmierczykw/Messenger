@@ -4,7 +4,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_friends"
-            android:title="@string/friends" />
+            android:title="@string/find_friends" />
     </group>
 
     <item android:title="@string/profile_management">
