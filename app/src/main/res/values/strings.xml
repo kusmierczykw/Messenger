@@ -23,4 +23,5 @@
     <string name="signed_out_successfully">Signed out successfully</string>
     <string name="find_friends">Find friends</string>
     <string name="main_profile">Main profile</string>
+    <string name="friends_list">Friends list</string>
 </resources>
