@@ -1,0 +1,42 @@
+package com.kusmierczyk.wojciech.messenger.model;
+
+/**
+ * Created by wojciech on 29.06.2017.
+ */
+
+public class User {
+    private String username;
+    private String email;
+    private String avatarURL;
+
+    public User(){}
+    public User(String username, String email, String avatarURL){
+        this.username = username;
+        this.email = email;
+        this.avatarURL = avatarURL;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setAvatarURL(String avatarURL) {
+        this.avatarURL = avatarURL;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getAvatarURL() {
+        return avatarURL;
+    }
+}

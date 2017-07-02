@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.kusmierczyk.wojciech.messenger.SignInActivity">
+
+    <EditText
+        android:id="@+id/activity_sign_in_email_field"
+        style="@style/InputTheme"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="142dp"
+        android:ems="10"
+        android:hint="@string/email"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/activity_sign_in_password_field"
+        style="@style/InputTheme"
+        android:layout_alignStart="@+id/activity_sign_in_email_field"
+        android:layout_below="@+id/activity_sign_in_email_field"
+        android:layout_marginTop="25dp"
+        android:ems="10"
+        android:hint="@string/password"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/activity_sign_in_sign_in_button"
+        style="@style/NormalButton"
+        android:layout_alignEnd="@+id/activity_sign_in_password_field"
+        android:layout_below="@+id/activity_sign_in_password_field"
+        android:layout_marginTop="63dp"
+        android:text="@string/sign_in"
+        android:textColor="@color/white" />
+
+    <Button
+        android:id="@+id/activity_sign_in_sign_up_button"
+        style="@style/EmptyButton"
+        android:layout_alignBottom="@+id/activity_sign_in_sign_in_button"
+        android:layout_alignStart="@+id/activity_sign_in_password_field"
+        android:text="@string/sign_up"
+        android:textColor="@color/colorPrimary" />
+</RelativeLayout>
