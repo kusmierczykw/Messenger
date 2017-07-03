@@ -54,8 +54,12 @@ public class FriendsListActivity extends MainActivity {
             @Override
             protected void populateView(final View v, final User model, int position) {
                 if(model.getAvatarURL() != null && model.getAvatarURL().length() > 0){
-                    StorageReference mAvatarReference = FirebaseStorage.getInstance().getReference().child(model.getAvatarURL());
-                    Glide.with(v.getContext()).using(new FirebaseImageLoader()).load(mAvatarReference).bitmapTransform(new CropCircleTransformation(v.getContext())).into((ImageView) findViewById(R.id.user_item_user_avatar));
+                    try{
+                        StorageReference mAvatarReference = FirebaseStorage.getInstance().getReference().child(model.getAvatarURL());
+                        Glide.with(v.getContext()).using(new FirebaseImageLoader()).load(mAvatarReference).bitmapTransform(new CropCircleTransformation(v.getContext())).into((ImageView) v.findViewById(R.id.user_item_user_avatar));
+                    }catch (Exception e){
+                        Log.e("Err", e.toString());
+                    }
                 }
                 ((TextView)v.findViewById(R.id.user_item_username)).setText(model.getUsername());
                 ((TextView)v.findViewById(R.id.user_item_email)).setText(model.getEmail());

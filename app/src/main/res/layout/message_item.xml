@@ -14,6 +14,7 @@
         android:id="@+id/message_item_friend_avatar"
         android:layout_width="60dp"
         android:layout_height="55dp"
+        android:layout_marginTop="7.5dp"
         app:srcCompat="@drawable/user" />
 
     <LinearLayout
@@ -39,8 +40,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="02/07/2017 10:37"
+            android:textAlignment="textEnd"
             android:textColor="@color/white"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:layout_margin="5dp"/>
     </LinearLayout>
 
 </LinearLayout>

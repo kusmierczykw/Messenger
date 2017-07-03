@@ -107,7 +107,6 @@ public class MainProfileActivity extends MainActivity implements NavigationView.
                 startActivity(intent);
                 break;
 
-
             case R.id.nav_log_out:
                 mAuth.signOut();
                 Toast.makeText(MainProfileActivity.this, getString(R.string.signed_out_successfully), Toast.LENGTH_SHORT).show();
@@ -131,7 +130,6 @@ public class MainProfileActivity extends MainActivity implements NavigationView.
 
     private void syncProfile(){
         Log.d(TAG, "SyncProfile:start");
-        showProgressDialog(R.string.sync_process);
 
         mConversationDatabaseReference = mDatabase.getReference().child(Constants.USERS_LOCATION + "/"+ encryptEmail(mUser.getEmail()) + "/"+Constants.CONVERSATIONS_LOCATION);
         mUserDatabaseReference = mDatabase.getReference().child(Constants.USERS_LOCATION);
@@ -139,10 +137,7 @@ public class MainProfileActivity extends MainActivity implements NavigationView.
         mConversationsListView = (ListView) findViewById(R.id.conversationsListView);
         mConversationAdapter = new FirebaseListAdapter<Conversation>(this, Conversation.class, R.layout.conversation_item, mConversationDatabaseReference) {
             @Override
-            protected void populateView(final View v, Conversation model, int position) {
-
-                Log.e(TAG, model.getChatCreator().getEmail() + "|" + mUser.getEmail());
-
+            protected void populateView(final View v, final Conversation model, int position) {
                 if(model.getChatCreator().getEmail().equals(mUser.getEmail())){
                     ((TextView) v.findViewById(R.id.conversation_item_username)).setText(model.getUser().getUsername());
 
@@ -153,6 +148,7 @@ public class MainProfileActivity extends MainActivity implements NavigationView.
                 final DatabaseReference mMessageReference = mDatabase.getReference(Constants.MESSAGES_LOCATION + "/" + model.getConversationID());
 
                 final TextView lastMessage = v.findViewById(R.id.conversation_item_last_message);
+                final ImageView lastSenderAvatar = v.findViewById(R.id.conversation_item_last_sender_avatar);
                 final ImageView userAvatar = v.findViewById(R.id.conversation_item_user_avatar);
 
                 mMessageReference.addChildEventListener(new ChildEventListener() {
@@ -165,9 +161,29 @@ public class MainProfileActivity extends MainActivity implements NavigationView.
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 User messageSender = dataSnapshot.getValue(User.class);
-                                if(messageSender != null && messageSender.getAvatarURL() != null){
-                                    StorageReference storageRef = FirebaseStorage.getInstance().getReference().child(messageSender.getAvatarURL());
-                                    Glide.with(v.getContext()).using(new FirebaseImageLoader()).load(storageRef).bitmapTransform(new CropCircleTransformation(v.getContext())).into(userAvatar);
+                                if(messageSender != null && messageSender.getAvatarURL() != null) {
+                                    try {
+                                        if(messageSender.getEmail().equals(model.getUser().getEmail())){
+                                            Log.e(TAG, "USER: "+model.getUser().getEmail()+" CREATOR: "+model.getChatCreator().getEmail()+" SENDER: "+messageSender.getEmail());
+
+
+                                            StorageReference storageReferenceLastSender = FirebaseStorage.getInstance().getReference().child(messageSender.getAvatarURL());
+                                            Glide.with(v.getContext()).using(new FirebaseImageLoader()).load(storageReferenceLastSender).bitmapTransform(new CropCircleTransformation(v.getContext())).into(lastSenderAvatar);
+
+                                            StorageReference storageReferenceUser = FirebaseStorage.getInstance().getReference().child(model.getChatCreator().getAvatarURL());
+                                            Glide.with(v.getContext()).using(new FirebaseImageLoader()).load(storageReferenceUser).bitmapTransform(new CropCircleTransformation(v.getContext())).into(userAvatar);
+
+                                        }else{
+                                            Log.e(TAG, "USER: "+model.getUser().getEmail()+" CREATOR: "+model.getChatCreator().getEmail()+" SENDER: "+messageSender.getEmail());
+                                            StorageReference storageReferenceLastSender = FirebaseStorage.getInstance().getReference().child(messageSender.getAvatarURL());
+                                            Glide.with(v.getContext()).using(new FirebaseImageLoader()).load(storageReferenceLastSender).bitmapTransform(new CropCircleTransformation(v.getContext())).into(lastSenderAvatar);
+
+                                            StorageReference storageReferenceUser = FirebaseStorage.getInstance().getReference().child(model.getUser().getAvatarURL());
+                                            Glide.with(v.getContext()).using(new FirebaseImageLoader()).load(storageReferenceUser).bitmapTransform(new CropCircleTransformation(v.getContext())).into(userAvatar);
+                                        }
+                                    }catch (Exception e){
+                                        Log.e("Err", e.toString());
+                                    }
                                 }
                             }
 
@@ -215,7 +231,6 @@ public class MainProfileActivity extends MainActivity implements NavigationView.
                 if (conversation == null) {
                     return;
                 }
-                hideProgressDialog();
                 mConversationAdapter.notifyDataSetChanged();
             }
 

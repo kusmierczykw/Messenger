@@ -18,16 +18,16 @@
             android:layout_centerHorizontal="true" />
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/activity_settings_upload_button"
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:layout_below="@+id/activity_settings_user_avatar"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="33dp"
             android:background="@android:color/transparent"
             android:elevation="0dp"
             android:scaleType="centerCrop"
-            app:srcCompat="@android:drawable/ic_menu_upload_you_tube"
-            android:layout_below="@+id/activity_settings_user_avatar"
-            android:layout_centerHorizontal="true" />
+            app:srcCompat="@android:drawable/ic_menu_upload_you_tube" />
 
         <TextView
             android:id="@+id/textView"

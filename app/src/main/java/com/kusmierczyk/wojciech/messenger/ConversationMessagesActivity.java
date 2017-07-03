@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
@@ -139,7 +140,6 @@ public class ConversationMessagesActivity extends MainActivity{
     }
 
     private void showMessages(){
-        showProgressDialog(R.string.loading_of_messages);
         mMessagesListAdapter = new FirebaseListAdapter<Message>(this, Message.class, R.layout.message_item, mMessagesDatabaseReference) {
             @Override
             protected void populateView(final View v, Message model, int position) {
@@ -168,10 +168,14 @@ public class ConversationMessagesActivity extends MainActivity{
                     mUsersDatabaseReference.child(messageSender).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            User user = dataSnapshot.getValue(User.class);
-                            if (user != null && user.getAvatarURL() != null) {
-                                StorageReference storageReference = FirebaseStorage.getInstance().getReference().child(user.getAvatarURL());
-                                Glide.with(v.getContext()).using(new FirebaseImageLoader()).load(storageReference).bitmapTransform(new CropCircleTransformation(v.getContext())).into(friendAvatar);
+                            try {
+                                User user = dataSnapshot.getValue(User.class);
+                                if (user != null && user.getAvatarURL() != null) {
+                                    StorageReference storageReference = FirebaseStorage.getInstance().getReference().child(user.getAvatarURL());
+                                    Glide.with(v.getContext()).using(new FirebaseImageLoader()).load(storageReference).bitmapTransform(new CropCircleTransformation(v.getContext())).into(friendAvatar);
+                                }
+                            }catch (Exception e){
+                                Log.e("Err", e.toString());
                             }
                         }
 
@@ -180,7 +184,6 @@ public class ConversationMessagesActivity extends MainActivity{
                         }
                     });
                 }
-                hideProgressDialog();
             }
         };
         mMessagesList.setAdapter(mMessagesListAdapter);

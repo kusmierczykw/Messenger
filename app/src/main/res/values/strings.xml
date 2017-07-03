@@ -24,6 +24,8 @@
     <string name="sync_process">Process of data synchronization...</string>
     <string name="loading_of_messages">Loading of messages...</string>
 
+    <string name="uploading">Uploading...</string>
+
     <!-- Settings and other elements -->
     <string name="profile_management">Profile management</string>
     <string name="settings">Settings</string>

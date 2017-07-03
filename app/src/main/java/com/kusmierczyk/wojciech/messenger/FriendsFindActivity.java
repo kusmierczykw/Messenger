@@ -9,6 +9,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.database.DataSnapshot;
@@ -49,15 +50,15 @@ public class FriendsFindActivity extends MainActivity{
             @Override
             protected void populateView(final View v, final User model, int position) {
                 //TODO I don't know, why this solution doesn't work... Change it in new version of app
-                /**
-                 * DatabaseReference mFriendsDatabaseReference = mDatabase.getReference().child(Constants.FRIENDS_LOCATION).child(encryptEmail(mUser.getEmail()).child(encryptEmail(model.getEmail()));
-                 * dataSnapshot.getValue()...
-                 */
-                DatabaseReference mFriendsDatabaseReference = mDatabase.getReference().child(Constants.FRIENDS_LOCATION).child(encryptEmail(mUser.getEmail()));
+//                DatabaseReference mFriendsDatabaseReference = mDatabase.getReference().child(Constants.FRIENDS_LOCATION + "/" + encryptEmail(mUser.getEmail()) + "/" + encryptEmail(model.getEmail()));
+//                dataSnapshot.getValue()...
+
+                final DatabaseReference mFriendsDatabaseReference = mDatabase.getReference().child(Constants.FRIENDS_LOCATION).child(encryptEmail(mUser.getEmail()));
                 mFriendsDatabaseReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if(dataSnapshot.child(encryptEmail(model.getEmail())).getValue() != null){
+//                        if(dataSnapshot.getValue() != null){
                             v.findViewById(R.id.user_item_remove_button).setVisibility(View.VISIBLE);
                             v.findViewById(R.id.user_item_add_button).setVisibility(View.GONE);
                         }else {
@@ -73,7 +74,7 @@ public class FriendsFindActivity extends MainActivity{
 
                 if(model.getAvatarURL() != null && model.getAvatarURL().length() > 0){
                     StorageReference mAvatarReference = FirebaseStorage.getInstance().getReference().child(model.getAvatarURL());
-                    Glide.with(v.getContext()).using(new FirebaseImageLoader()).load(mAvatarReference).bitmapTransform(new CropCircleTransformation(v.getContext())).into((ImageView) findViewById(R.id.user_item_user_avatar));
+                    Glide.with(v.getContext()).using(new FirebaseImageLoader()).load(mAvatarReference).bitmapTransform(new CropCircleTransformation(v.getContext())).into((ImageView) v.findViewById(R.id.user_item_user_avatar));
                 }
                 ((TextView)v.findViewById(R.id.user_item_username)).setText(model.getUsername());
                 ((TextView)v.findViewById(R.id.user_item_email)).setText(model.getEmail());
@@ -109,9 +110,7 @@ public class FriendsFindActivity extends MainActivity{
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
+            public void onCancelled(DatabaseError databaseError) {}
         });
     }
 

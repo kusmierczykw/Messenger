@@ -8,15 +8,31 @@
     android:paddingLeft="@dimen/normal_margin"
     android:paddingRight="@dimen/normal_margin">
 
-    <ImageView
-        android:id="@+id/conversation_item_user_avatar"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:adjustViewBounds="false"
-        android:cropToPadding="false"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp"
-        app:srcCompat="@drawable/user" />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/conversation_item_last_sender_avatar"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:adjustViewBounds="true"
+            android:cropToPadding="false"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            app:srcCompat="@drawable/user" />
+
+        <ImageView
+            android:id="@+id/conversation_item_user_avatar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:adjustViewBounds="true"
+            android:cropToPadding="false"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            app:srcCompat="@drawable/user" />
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
