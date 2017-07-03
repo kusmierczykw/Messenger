@@ -14,14 +14,6 @@
         android:layout_height="55dp"
         app:srcCompat="@drawable/user" />
 
-    <ImageView
-        android:id="@+id/message_item_user_avatar"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:layout_weight="1"
-        android:visibility="gone"
-        app:srcCompat="@drawable/user" />
-
     <LinearLayout
         android:id="@+id/message_item_message_cloud"
         android:layout_width="wrap_content"
@@ -46,4 +38,5 @@
             android:textColor="@color/white"
             android:textSize="12sp" />
     </LinearLayout>
+
 </LinearLayout>

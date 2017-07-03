@@ -9,7 +9,8 @@ import java.util.List;
 public class Conversation {
     private String conversationID;
     private List<Message> messageList;
-    private Friend friend;
+    private User chatCreator;
+    private User user;
 
     public Conversation(){}
     public Conversation(String conversationID) {
@@ -28,17 +29,19 @@ public class Conversation {
         return messageList;
     }
 
-    public Friend getFriend() {
-        return friend;
+    public User getChatCreator() {
+        return chatCreator;
+    }
+    public User getUser() {
+        return user;
     }
 
 
     //TODO Methods to remove
-    public void setFriend(Friend friend){
-        this.friend = friend;
+    public void setChatCreator(User user){
+        this.chatCreator = user;
     }
-
-    public void removeFriend(){
-        this.friend = null;
+    public void setUser(User user){
+        this.user = user;
     }
 }

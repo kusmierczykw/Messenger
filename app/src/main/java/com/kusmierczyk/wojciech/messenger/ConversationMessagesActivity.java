@@ -57,6 +57,7 @@ public class ConversationMessagesActivity extends MainActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_conversation_messages);
 
         Intent intent = this.getIntent();
 
@@ -120,7 +121,7 @@ public class ConversationMessagesActivity extends MainActivity{
 
         //TODO Check if is the other solution of this problem
         Message message = new Message(encryptEmail(mAuth.getCurrentUser().getEmail()), messageString, timestamp);
-        HashMap<String, Object> messageItemMap = new HashMap<String, Object>();
+        HashMap<String, Object> messageItemMap = new HashMap<>();
         HashMap<String,Object> messageObj = (HashMap<String, Object>) new ObjectMapper().convertValue(message, Map.class);
         messageItemMap.put("/" + pushKey, messageObj);
         mMessagesDatabaseReference.updateChildren(messageItemMap).addOnCompleteListener(this, new OnCompleteListener<Void>() {
@@ -135,13 +136,13 @@ public class ConversationMessagesActivity extends MainActivity{
         mMessagesListAdapter = new FirebaseListAdapter<Message>(this, Message.class, R.layout.message_item, mMessagesDatabaseReference) {
             @Override
             protected void populateView(final View v, Message model, int position) {
-                LinearLayout messageItem = (LinearLayout) findViewById(R.id.message_item);
-                TextView message = (TextView) findViewById(R.id.message_item_message);
-                final TextView sendTime = (TextView) findViewById(R.id.message_item_send_time);
-                LinearLayout messageCloud = (LinearLayout) findViewById(R.id.message_item_message_cloud);
+                LinearLayout messageItem = v.findViewById(R.id.message_item);
+                TextView message = v.findViewById(R.id.message_item_message);
+                final TextView sendTime = v.findViewById(R.id.message_item_send_time);
+                LinearLayout messageCloud = v.findViewById(R.id.message_item_message_cloud);
 
-                final ImageView userAvatar = (ImageView) findViewById(R.id.message_item_user_avatar);
-                final ImageView friendAvatar = (ImageView) findViewById(R.id.message_item_friend_avatar);
+//                final ImageView userAvatar = v.findViewById(R.id.message_item_user_avatar);
+                final ImageView friendAvatar = v.findViewById(R.id.message_item_friend_avatar);
 
                 message.setText(model.getMessage());
                 sendTime.setText(model.getTimeStamp());
@@ -152,28 +153,28 @@ public class ConversationMessagesActivity extends MainActivity{
                 if(encryptEmail(messageSender).equals(encryptEmail(mUser.getEmail()))){
                     messageItem.setGravity(Gravity.RIGHT);
                     friendAvatar.setVisibility(View.GONE);
-                    userAvatar.setVisibility(View.VISIBLE);
+//                    userAvatar.setVisibility(View.VISIBLE);
 
-                    mUsersDatabaseReference.child(messageSender).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            User user = dataSnapshot.getValue(User.class);
-
-                            if(user != null && user.getAvatarURL() != null){
-                                StorageReference storageReference = FirebaseStorage.getInstance().getReference().child(user.getAvatarURL());
-                                Glide.with(v.getContext()).load(storageReference).bitmapTransform(new CropCircleTransformation(v.getContext())).into(userAvatar);
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {}
-                    });
+//                    mUsersDatabaseReference.child(messageSender).addValueEventListener(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(DataSnapshot dataSnapshot) {
+//                            User user = dataSnapshot.getValue(User.class);
+//
+//                            if(user != null && user.getAvatarURL() != null){
+//                                StorageReference storageReference = FirebaseStorage.getInstance().getReference().child(user.getAvatarURL());
+//                                Glide.with(v.getContext()).load(storageReference).bitmapTransform(new CropCircleTransformation(v.getContext())).into(userAvatar);
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(DatabaseError databaseError) {}
+//                    });
 
                     messageCloud.setBackgroundResource(R.drawable.message_cloud_user);
                 }else{
                     messageItem.setGravity(Gravity.LEFT);
                     friendAvatar.setVisibility(View.VISIBLE);
-                    userAvatar.setVisibility(View.GONE);
+//                    userAvatar.setVisibility(View.GONE);
                     messageCloud.setBackgroundResource(R.drawable.message_cloud_friend);
 
                     mUsersDatabaseReference.child(messageSender).addValueEventListener(new ValueEventListener() {

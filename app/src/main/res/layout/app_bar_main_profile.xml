@@ -24,7 +24,9 @@
     <include
         layout="@layout/content_main_profile"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/normal_margin"
+        android:layout_marginTop="@dimen/header_height"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/write_message_button"

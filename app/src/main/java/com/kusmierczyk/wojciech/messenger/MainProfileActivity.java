@@ -134,10 +134,10 @@ public class MainProfileActivity extends MainActivity implements NavigationView.
         mUserDatabaseReference = mDatabase.getReference().child(Constants.USERS_LOCATION);
 
         mConversationsListView = (ListView) findViewById(R.id.conversationsListView);
-        mConversationAdapter = new FirebaseListAdapter<Conversation>(this, Conversation.class, R.layout.content_main_profile, mConversationDatabaseReference) {
+        mConversationAdapter = new FirebaseListAdapter<Conversation>(this, Conversation.class, R.layout.conversation_item, mConversationDatabaseReference) {
             @Override
             protected void populateView(final View v, Conversation model, int position) {
-                ((TextView) v.findViewById(R.id.conversation_item_username)).setText(model.getFriend().getUsername());
+                ((TextView) v.findViewById(R.id.conversation_item_username)).setText(model.getUser().getUsername());
                 final DatabaseReference mMessageReference = mDatabase.getReference(Constants.MESSAGES_LOCATION + "/" + model.getConversationID());
 
                 final TextView lastMessage = v.findViewById(R.id.conversation_item_last_message);
@@ -185,7 +185,14 @@ public class MainProfileActivity extends MainActivity implements NavigationView.
                     String messageKey = mConversationAdapter.getRef(i).getKey();
                     intent.putExtra(Constants.MESSAGE_ID, messageKey);
                     Conversation conversation = (Conversation) mConversationAdapter.getItem(i);
-                    intent.putExtra(Constants.CONVERSATION_NAME, conversation.getFriend().getUsername());
+
+                    if(conversation.getChatCreator().getEmail().equals(mUser.getEmail())){
+                        intent.putExtra(Constants.CONVERSATION_NAME, conversation.getUser().getUsername());
+                    }else{
+                        intent.putExtra(Constants.CONVERSATION_NAME, conversation.getChatCreator().getUsername());
+                    }
+
+//                    intent.putExtra(Constants.CONVERSATION_NAME, conversation.getUser().getUsername());
                     startActivity(intent);
                 }
             }

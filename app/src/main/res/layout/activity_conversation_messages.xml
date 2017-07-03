@@ -22,7 +22,12 @@
                 android:id="@+id/activity_conversation_messages_messages_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:listitem="@layout/message_item" />
+                tools:listitem="@layout/message_item"
+                android:divider="@null"
+                android:dividerHeight="0dp"
+                android:stackFromBottom="false"
+                android:transcriptMode="alwaysScroll"
+                android:smoothScrollbar="true"/>
         </LinearLayout>
 
         <LinearLayout
@@ -38,8 +43,6 @@
                 android:id="@+id/activity_conversation_messages_message_field"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentStart="true"
                 android:layout_weight="5.05"
                 android:ems="10"
                 android:inputType="textPersonName" />
