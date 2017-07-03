@@ -139,6 +139,7 @@ public class ConversationMessagesActivity extends MainActivity{
     }
 
     private void showMessages(){
+        showProgressDialog(R.string.loading_of_messages);
         mMessagesListAdapter = new FirebaseListAdapter<Message>(this, Message.class, R.layout.message_item, mMessagesDatabaseReference) {
             @Override
             protected void populateView(final View v, Message model, int position) {
@@ -155,11 +156,11 @@ public class ConversationMessagesActivity extends MainActivity{
                 String messageSender = encryptEmail(model.getSender());
 
                 //If the user of app then message item do right else the message was sent from friend
-                if(encryptEmail(messageSender).equals(encryptEmail(mUser.getEmail()))){
+                if (encryptEmail(messageSender).equals(encryptEmail(mUser.getEmail()))) {
                     messageItem.setGravity(Gravity.RIGHT);
                     friendAvatar.setVisibility(View.GONE);
                     messageCloud.setBackgroundResource(R.drawable.message_cloud_user);
-                }else{
+                } else {
                     messageItem.setGravity(Gravity.LEFT);
                     friendAvatar.setVisibility(View.VISIBLE);
                     messageCloud.setBackgroundResource(R.drawable.message_cloud_friend);
@@ -168,16 +169,18 @@ public class ConversationMessagesActivity extends MainActivity{
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             User user = dataSnapshot.getValue(User.class);
-                            if(user != null && user.getAvatarURL() != null){
+                            if (user != null && user.getAvatarURL() != null) {
                                 StorageReference storageReference = FirebaseStorage.getInstance().getReference().child(user.getAvatarURL());
                                 Glide.with(v.getContext()).using(new FirebaseImageLoader()).load(storageReference).bitmapTransform(new CropCircleTransformation(v.getContext())).into(friendAvatar);
                             }
                         }
 
                         @Override
-                        public void onCancelled(DatabaseError databaseError) {}
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
                     });
                 }
+                hideProgressDialog();
             }
         };
         mMessagesList.setAdapter(mMessagesListAdapter);

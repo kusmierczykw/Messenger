@@ -94,15 +94,17 @@ public class MainProfileActivity extends MainActivity implements NavigationView.
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
+        Intent intent;
 
         switch(id){
             case R.id.nav_friends:
-                Intent intent = new Intent(this, FriendsFindActivity.class);
+                intent = new Intent(this, FriendsFindActivity.class);
                 startActivity(intent);
                 break;
 
             case R.id.nav_settings:
-
+                intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
                 break;
 
 
@@ -129,6 +131,7 @@ public class MainProfileActivity extends MainActivity implements NavigationView.
 
     private void syncProfile(){
         Log.d(TAG, "SyncProfile:start");
+        showProgressDialog(R.string.sync_process);
 
         mConversationDatabaseReference = mDatabase.getReference().child(Constants.USERS_LOCATION + "/"+ encryptEmail(mUser.getEmail()) + "/"+Constants.CONVERSATIONS_LOCATION);
         mUserDatabaseReference = mDatabase.getReference().child(Constants.USERS_LOCATION);
@@ -137,7 +140,16 @@ public class MainProfileActivity extends MainActivity implements NavigationView.
         mConversationAdapter = new FirebaseListAdapter<Conversation>(this, Conversation.class, R.layout.conversation_item, mConversationDatabaseReference) {
             @Override
             protected void populateView(final View v, Conversation model, int position) {
-                ((TextView) v.findViewById(R.id.conversation_item_username)).setText(model.getUser().getUsername());
+
+                Log.e(TAG, model.getChatCreator().getEmail() + "|" + mUser.getEmail());
+
+                if(model.getChatCreator().getEmail().equals(mUser.getEmail())){
+                    ((TextView) v.findViewById(R.id.conversation_item_username)).setText(model.getUser().getUsername());
+
+                }else{
+                    ((TextView) v.findViewById(R.id.conversation_item_username)).setText(model.getChatCreator().getUsername());
+                }
+
                 final DatabaseReference mMessageReference = mDatabase.getReference(Constants.MESSAGES_LOCATION + "/" + model.getConversationID());
 
                 final TextView lastMessage = v.findViewById(R.id.conversation_item_last_message);
@@ -186,7 +198,7 @@ public class MainProfileActivity extends MainActivity implements NavigationView.
                     intent.putExtra(Constants.MESSAGE_ID, messageKey);
                     Conversation conversation = (Conversation) mConversationAdapter.getItem(i);
 
-                    if(conversation.getChatCreator().getEmail().equals(mUser.getEmail())){
+                    if(conversation.getChatCreator().getEmail().equals(encryptEmail(mUser.getEmail()))){
                         intent.putExtra(Constants.CONVERSATION_NAME, conversation.getUser().getUsername());
                     }else{
                         intent.putExtra(Constants.CONVERSATION_NAME, conversation.getChatCreator().getUsername());
@@ -203,13 +215,13 @@ public class MainProfileActivity extends MainActivity implements NavigationView.
                 if (conversation == null) {
                     return;
                 }
+                hideProgressDialog();
                 mConversationAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         });
-
         Log.d(TAG, "SyncProfile:finish");
     }
 }

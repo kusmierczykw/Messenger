@@ -69,7 +69,7 @@ public class SignInActivity extends MainActivity {
         if (!validateForm()) {
             return;
         }
-        showProgressDialog();
+        showProgressDialog(R.string.loging);
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {

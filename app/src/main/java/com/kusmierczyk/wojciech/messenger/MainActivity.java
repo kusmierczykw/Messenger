@@ -2,6 +2,7 @@ package com.kusmierczyk.wojciech.messenger;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.annotation.StringRes;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
 
@@ -32,10 +33,10 @@ public class MainActivity extends AppCompatActivity {
     @VisibleForTesting
     public ProgressDialog mProgressDialog;
 
-    public void showProgressDialog() {
+    public void showProgressDialog(@StringRes int stringRes) {
         if (mProgressDialog == null) {
             mProgressDialog = new ProgressDialog(this);
-            mProgressDialog.setMessage(getString(R.string.loading));
+            mProgressDialog.setMessage(getString(stringRes));
             mProgressDialog.setIndeterminate(true);
         }
         mProgressDialog.show();

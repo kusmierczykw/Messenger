@@ -44,6 +44,7 @@ public class FriendsFindActivity extends MainActivity{
     }
 
     private void showUsersList(){
+        showProgressDialog(R.string.loading);
         mFriendListAdapter = new FirebaseListAdapter<User>(this, User.class, R.layout.user_item, mUsersDatabaseReference) {
             @Override
             protected void populateView(final View v, final User model, int position) {
@@ -63,6 +64,7 @@ public class FriendsFindActivity extends MainActivity{
                             v.findViewById(R.id.user_item_remove_button).setVisibility(View.GONE);
                             v.findViewById(R.id.user_item_add_button).setVisibility(View.VISIBLE);
                         }
+                        hideProgressDialog();
                     }
 
                     @Override
