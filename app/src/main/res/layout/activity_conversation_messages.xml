@@ -5,8 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="@dimen/normal_margin">
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -25,7 +24,7 @@
                 tools:listitem="@layout/message_item"
                 android:divider="@null"
                 android:dividerHeight="0dp"
-                android:stackFromBottom="false"
+                android:stackFromBottom="true"
                 android:transcriptMode="alwaysScroll"
                 android:smoothScrollbar="true"/>
         </LinearLayout>
@@ -36,8 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:orientation="horizontal"
-            android:padding="5dp">
+            android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/activity_conversation_messages_message_field"

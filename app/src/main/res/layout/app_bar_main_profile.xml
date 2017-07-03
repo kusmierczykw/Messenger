@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.kusmierczyk.wojciech.messenger.MainProfileActivity"
-    android:orientation="horizontal">
+    tools:context="com.kusmierczyk.wojciech.messenger.MainProfileActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -25,7 +24,6 @@
         layout="@layout/content_main_profile"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/normal_margin"
         android:layout_marginTop="@dimen/header_height"/>
 
     <android.support.design.widget.FloatingActionButton

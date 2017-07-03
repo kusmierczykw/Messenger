@@ -191,8 +191,6 @@ public class MainProfileActivity extends MainActivity implements NavigationView.
                     }else{
                         intent.putExtra(Constants.CONVERSATION_NAME, conversation.getChatCreator().getUsername());
                     }
-
-//                    intent.putExtra(Constants.CONVERSATION_NAME, conversation.getUser().getUsername());
                     startActivity(intent);
                 }
             }

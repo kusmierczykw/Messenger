@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:paddingLeft="@dimen/normal_margin"
+    android:paddingRight="@dimen/normal_margin">
 
     <ImageView
         android:id="@+id/conversation_item_user_avatar"
@@ -48,8 +50,9 @@
             android:layout_alignParentTop="true"
             android:text="28/07/2017"
             android:textAlignment="textEnd"
-            android:textSize="10sp"
-            android:textStyle="italic" />
+            android:textSize="12sp"
+            android:textStyle="italic"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/conversation_item_send_time"
@@ -60,8 +63,9 @@
             android:text="20:08"
             android:textAlignment="textEnd"
             android:textAllCaps="false"
-            android:textSize="10sp"
-            android:textStyle="italic" />
+            android:textSize="12sp"
+            android:textStyle="italic"
+            android:visibility="gone" />
 
     </RelativeLayout>
 </LinearLayout>
