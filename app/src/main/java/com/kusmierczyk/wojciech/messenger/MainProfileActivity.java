@@ -139,9 +139,6 @@ public class MainProfileActivity extends MainActivity implements NavigationView.
 
         final ImageView profilePhoto = (ImageView) header.findViewById(R.id.imageView);
 
-
-
-
         mReceiverDatabaseReference.child(encryptEmail(mUser.getEmail())).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
