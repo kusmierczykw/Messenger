@@ -4,7 +4,13 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_friends"
+            android:icon="@drawable/user"
             android:title="@string/find_friends" />
+
+        <item
+            android:id="@+id/nav_create_conversation"
+            android:icon="@drawable/ic_email_white_18dp"
+            android:title="@string/create_conversation" />
     </group>
 
     <item android:title="@string/profile_management">

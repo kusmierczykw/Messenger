@@ -33,7 +33,7 @@ public class SignUpActivity extends MainActivity {
     /** Activity elements **/
     private EditText mEmailField;
     private EditText mPasswordField;
-    private EditText mRepeatPasswordField;
+    private EditText mConfirmPasswordField;
     private EditText mUsernameField;
     private Button mSignInButton;
     private Button mSignUpButton;
@@ -54,7 +54,7 @@ public class SignUpActivity extends MainActivity {
         mUsernameField = (EditText) findViewById(R.id.activity_sign_up_username_field);
         mEmailField = (EditText) findViewById(R.id.activity_sign_up_email_field);
         mPasswordField = (EditText) findViewById(R.id.activity_sign_up_password_field);
-        mRepeatPasswordField = (EditText) findViewById(R.id.activity_sign_up_repeat_password_field);
+        mConfirmPasswordField = (EditText) findViewById(R.id.activity_sign_up_confirm_password_field);
     }
 
     protected View.OnClickListener listener = new View.OnClickListener() {
@@ -109,7 +109,7 @@ public class SignUpActivity extends MainActivity {
         String userName = mUsernameField.getText().toString();
         String email = mEmailField.getText().toString();
         String password = mPasswordField.getText().toString();
-        String repeatPassword = mRepeatPasswordField.getText().toString();
+        String confirmPassword = mConfirmPasswordField.getText().toString();
 
         if(userName.isEmpty()){
             mUsernameField.setError(getString(R.string.username_is_required));
@@ -130,8 +130,8 @@ public class SignUpActivity extends MainActivity {
             valid = false;
         }
 
-        if(!repeatPassword.equals(password)){
-            mRepeatPasswordField.setError(getString(R.string.passwords_are_different));
+        if(!confirmPassword.equals(password)){
+            mConfirmPasswordField.setError(getString(R.string.passwords_are_different));
             valid = false;
         }
         return valid;

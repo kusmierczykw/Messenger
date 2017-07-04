@@ -3,13 +3,13 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <!-- Forms -->
-    <string name="app_name">Messenger</string>
+    <string name="app_name" translatable="false">Messenger</string>
     <string name="email">Email</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="sign_in">Sign In</string>
     <string name="sign_up">Sign Up</string>
-    <string name="repeat_password">Repeat password</string>
+    <string name="confirm_password">Confirm password</string>
 
     <!-- Warnings -->
     <string name="email_address_is_incorrect">Email address is incorrect</string>
@@ -35,5 +35,6 @@
     <string name="main_profile">Main profile</string>
     <string name="friends_list">Friends list</string>
     <string name="choose_new_avatar">Choose new avatar</string>
+    <string name="create_conversation">Create conversation</string>
 
 </resources>

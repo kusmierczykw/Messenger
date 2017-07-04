@@ -10,12 +10,27 @@
     android:paddingLeft="@dimen/normal_margin"
     android:paddingRight="@dimen/normal_margin">
 
-    <ImageView
-        android:id="@+id/message_item_friend_avatar"
-        android:layout_width="60dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="7.5dp"
-        app:srcCompat="@drawable/user" />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/message_item_friend_avatar"
+            android:layout_width="60dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="7.5dp"
+            app:srcCompat="@drawable/user" />
+
+        <ImageView
+            android:id="@+id/message_item_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="5dp"
+            app:srcCompat="@android:drawable/presence_online" />
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/message_item_message_cloud"

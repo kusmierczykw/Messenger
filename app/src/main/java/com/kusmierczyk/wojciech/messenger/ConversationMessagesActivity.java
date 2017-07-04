@@ -149,6 +149,7 @@ public class ConversationMessagesActivity extends MainActivity{
                 LinearLayout messageCloud = v.findViewById(R.id.message_item_message_cloud);
 
                 final ImageView friendAvatar = v.findViewById(R.id.message_item_friend_avatar);
+                final ImageView userStatus = v.findViewById(R.id.message_item_status);
 
                 message.setText(model.getMessage());
                 sendTime.setText(model.getTimeStamp());
@@ -159,10 +160,12 @@ public class ConversationMessagesActivity extends MainActivity{
                 if (encryptEmail(messageSender).equals(encryptEmail(mUser.getEmail()))) {
                     messageItem.setGravity(Gravity.RIGHT);
                     friendAvatar.setVisibility(View.GONE);
+                    userStatus.setVisibility(View.GONE);
                     messageCloud.setBackgroundResource(R.drawable.message_cloud_user);
                 } else {
                     messageItem.setGravity(Gravity.LEFT);
                     friendAvatar.setVisibility(View.VISIBLE);
+                    userStatus.setVisibility(View.VISIBLE);
                     messageCloud.setBackgroundResource(R.drawable.message_cloud_friend);
 
                     mUsersDatabaseReference.child(messageSender).addValueEventListener(new ValueEventListener() {
@@ -170,7 +173,18 @@ public class ConversationMessagesActivity extends MainActivity{
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             try {
                                 User user = dataSnapshot.getValue(User.class);
+                                boolean status = (Boolean) dataSnapshot.child("status").getValue();
+
                                 if (user != null && user.getAvatarURL() != null) {
+                                    if(!status){
+                                        userStatus.setVisibility(View.GONE);
+                                        userStatus.setImageResource(R.drawable.presence_offline);
+                                        userStatus.setVisibility(View.VISIBLE);
+                                    }else{
+                                        userStatus.setVisibility(View.GONE);
+                                        userStatus.setImageResource(R.drawable.presence_online);
+                                        userStatus.setVisibility(View.VISIBLE);
+                                    }
                                     StorageReference storageReference = FirebaseStorage.getInstance().getReference().child(user.getAvatarURL());
                                     Glide.with(v.getContext()).using(new FirebaseImageLoader()).load(storageReference).bitmapTransform(new CropCircleTransformation(v.getContext())).into(friendAvatar);
                                 }

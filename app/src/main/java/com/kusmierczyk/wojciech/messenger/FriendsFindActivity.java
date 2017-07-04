@@ -19,6 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.kusmierczyk.wojciech.messenger.model.Constants;
+import com.kusmierczyk.wojciech.messenger.model.Friend;
 import com.kusmierczyk.wojciech.messenger.model.User;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
@@ -50,6 +51,8 @@ public class FriendsFindActivity extends MainActivity{
             protected void populateView(final View v, final User model, int position) {
                 //Reset of avatar after buffering image
                 ((ImageView) v.findViewById(R.id.user_item_user_avatar)).setImageResource(R.drawable.user);
+
+                ((ImageView) v.findViewById(R.id.user_item_status)).setVisibility(View.GONE);
 
                 final DatabaseReference mFriendsDatabaseReference = mDatabase.getReference().child(Constants.FRIENDS_LOCATION).child(encryptEmail(mUser.getEmail()));
                 mFriendsDatabaseReference.addValueEventListener(new ValueEventListener() {
@@ -118,8 +121,9 @@ public class FriendsFindActivity extends MainActivity{
 
     private void addFriend(User user){
         final String currentUser = mAuth.getCurrentUser().getEmail();
+        Friend friend = new Friend(user.getEmail(), user.getUsername());
         final DatabaseReference friendReference = mDatabase.getReference(Constants.FRIENDS_LOCATION + "/" + encryptEmail(currentUser));
-        friendReference.child(encryptEmail(user.getEmail())).setValue(user);
+        friendReference.child(encryptEmail(user.getEmail())).setValue(friend);
     }
 
     private void initialization(){

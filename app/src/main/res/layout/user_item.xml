@@ -1,31 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
     android:weightSum="1"
     android:id="@+id/user_item">
 
     <ImageView
         android:id="@+id/user_item_user_avatar"
         android:layout_width="70dp"
-        android:layout_height="80dp"
-        android:paddingBottom="15dp"
-        android:paddingTop="15dp"
+        android:layout_height="70dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
         app:srcCompat="@drawable/user" />
 
-    <LinearLayout
-        android:layout_width="190dp"
-        android:layout_height="80dp"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/normal_margin"
-        android:paddingTop="@dimen/normal_margin">
+    <ImageView
+        android:id="@+id/user_item_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="45dp"
+        android:layout_marginTop="5dp"
+        app:srcCompat="@android:drawable/presence_online" />
+
+    <RelativeLayout
+        android:layout_width="220dp"
+        android:layout_height="70dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="5dp"
+        android:layout_toEndOf="@+id/user_item_user_avatar">
 
         <TextView
             android:id="@+id/user_item_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="15dp"
             android:text="Username Username"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -34,15 +48,21 @@
             android:id="@+id/user_item_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Email" />
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="15dp"
+            android:text="Email"
+            android:textSize="14sp" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="15dp">
+        android:padding="15dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true">
 
         <Button
             android:id="@+id/user_item_add_button"
@@ -58,5 +78,6 @@
             android:background="@mipmap/icon_delete_button"
             android:visibility="gone" />
 
-    </LinearLayout>
-</LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

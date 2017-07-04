@@ -21,6 +21,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.kusmierczyk.wojciech.messenger.model.Constants;
 import com.kusmierczyk.wojciech.messenger.model.Conversation;
+import com.kusmierczyk.wojciech.messenger.model.Friend;
 import com.kusmierczyk.wojciech.messenger.model.User;
 
 import java.util.HashMap;
@@ -53,16 +54,48 @@ public class FriendsListActivity extends MainActivity {
     }
 
     private void showUsersList(){
-        mFriendListAdapter = new FirebaseListAdapter<User>(this, User.class, R.layout.user_item, mFriendsDatabaseReference) {
+        mFriendListAdapter = new FirebaseListAdapter<Friend>(this, Friend.class, R.layout.user_item, mFriendsDatabaseReference) {
             @Override
-            protected void populateView(final View v, final User model, int position) {
+            protected void populateView(final View v, final Friend model, int position) {
                 //Reset of avatar after buffering image
                 ((ImageView) v.findViewById(R.id.user_item_user_avatar)).setImageResource(R.drawable.user);
 
-                if(model.getAvatarURL() != null && model.getAvatarURL().length() > 0){
-                    StorageReference mAvatarReference = FirebaseStorage.getInstance().getReference().child(model.getAvatarURL());
-                    Glide.with(v.getContext()).using(new FirebaseImageLoader()).load(mAvatarReference).bitmapTransform(new CropCircleTransformation(v.getContext())).into((ImageView) v.findViewById(R.id.user_item_user_avatar));
-                }
+                DatabaseReference userReference = mDatabase.getReference(Constants.USERS_LOCATION + "/" + encryptEmail(model.getEmail()));
+
+                userReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String avatarURL = dataSnapshot.child("avatarURL").getValue().toString();
+                        if(avatarURL != null && avatarURL.length() > 0){
+                            StorageReference mAvatarReference = FirebaseStorage.getInstance().getReference().child(avatarURL);
+                            Glide.with(v.getContext()).using(new FirebaseImageLoader()).load(mAvatarReference).bitmapTransform(new CropCircleTransformation(v.getContext())).into((ImageView) v.findViewById(R.id.user_item_user_avatar));
+                        }
+
+
+                        ImageView status = ((ImageView) v.findViewById(R.id.user_item_status));
+
+                        try {
+                            boolean userStatus = (Boolean) dataSnapshot.child("status").getValue();
+                            if (!userStatus){
+                                status.setVisibility(View.GONE);
+                                status.setImageResource(R.drawable.presence_offline);
+                                status.setVisibility(View.VISIBLE);
+                            }else{
+                                status.setVisibility(View.GONE);
+                                status.setImageResource(R.drawable.presence_online);
+                                status.setVisibility(View.VISIBLE);
+                            }
+                        }catch (NullPointerException e){
+                            status.setVisibility(View.GONE);
+                            status.setImageResource(R.drawable.presence_offline);
+                            status.setVisibility(View.VISIBLE);
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {}
+                });
                 ((TextView)v.findViewById(R.id.user_item_username)).setText(model.getUsername());
                 ((TextView)v.findViewById(R.id.user_item_email)).setText(model.getEmail());
             }
@@ -75,9 +108,10 @@ public class FriendsListActivity extends MainActivity {
                 Log.e(TAG, position+" clicked");
                 Conversation conversation = new Conversation();
                 User chatCreator = new User(mUser.getDisplayName(), mUser.getEmail(), null);
+                Friend user = ((Friend) (adapterView.getItemAtPosition(position)));
 
                 conversation.setChatCreator(chatCreator);
-                conversation.setUser(((User)(adapterView.getItemAtPosition(position))));
+                conversation.setUser(new User(user.getUsername(), user.getEmail(), null));
 
                 createOfConversation(conversation, view);
             }

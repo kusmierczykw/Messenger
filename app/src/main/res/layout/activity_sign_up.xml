@@ -34,11 +34,11 @@
         android:inputType="textPassword" />
 
     <EditText
-        android:id="@+id/activity_sign_up_repeat_password_field"
+        android:id="@+id/activity_sign_up_confirm_password_field"
         style="@style/InputTheme"
         android:layout_marginTop="22dp"
         android:ems="10"
-        android:hint="@string/repeat_password"
+        android:hint="@string/confirm_password"
         android:inputType="textPassword"
         android:layout_below="@+id/activity_sign_up_password_field"
         android:layout_alignStart="@+id/activity_sign_up_password_field" />
@@ -46,8 +46,9 @@
     <Button
         android:id="@+id/activity_sign_up_sign_in_button"
         style="@style/EmptyButton"
+        android:layout_width="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/activity_sign_up_repeat_password_field"
+        android:layout_alignStart="@+id/activity_sign_up_confirm_password_field"
         android:layout_marginBottom="37dp"
         android:text="@string/sign_in"
         android:textColor="@color/colorPrimary" />
@@ -55,9 +56,10 @@
     <Button
         android:id="@+id/activity_sign_up_sign_up_button"
         style="@style/NormalButton"
-        android:text="@string/sign_up"
-        android:textColor="@color/white"
+        android:layout_width="wrap_content"
         android:layout_alignBottom="@+id/activity_sign_up_sign_in_button"
-        android:layout_alignEnd="@+id/activity_sign_up_repeat_password_field" />
+        android:layout_alignEnd="@+id/activity_sign_up_confirm_password_field"
+        android:text="@string/sign_up"
+        android:textColor="@color/white" />
 
 </RelativeLayout>

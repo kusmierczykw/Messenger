@@ -1,0 +1,40 @@
+<resources>
+    <string name="navigation_drawer_open">Open navigation drawer</string> Otwórz szufladę nawigacyjną
+    <string name="navigation_drawer_close">Close navigation drawer</string> Zamknij szufladę nawigacyjną
+
+    <!-- Forms -->
+    <string name="app_name">Messenger</string>
+    <string name="email">E-mail</string>
+    <string name="username">Nazwa użytkownika</string>
+    <string name="password">Hasło</string>
+    <string name="sign_in">Zaloguj</string>
+    <string name="sign_up">Zarejestruj</string>
+    <string name="confirm_password">Potwierdź hasło</string>
+
+    <!-- Warnings -->
+    <string name="email_address_is_incorrect">Adres e-mail jest poprawny</string>
+    <string name="password_is_too_short">Hasło jest za krótkie (minumum 6 znaków)</string>
+    <string name="username_is_required">Nazwa użytkownika jest wymagana</string>
+    <string name="passwords_are_different">Hasła się różnią </string>
+
+    <!-- Progress dialogs text -->
+    <string name="loading">Ładowanie...</string>
+    <string name="loging">Logowanie trwa...</string>
+    <string name="registering">Użytkownik rejestruje się...</string>
+    <string name="sync_process">Proces synchronizacji danych...</string>
+    <string name="loading_of_messages">Ładowanie wiadomości...</string>
+
+    <string name="uploading">Przesyłanie...</string>
+
+    <!-- Settings and other elements -->
+    <string name="profile_management">Zarządzenie profilem</string>
+    <string name="settings">Ustawienia</string>
+    <string name="sign_out">Wyloguj się </string>
+    <string name="signed_out_successfully">Wylogowanie zakończone pomyślnie</string>
+    <string name="find_friends">Znajdź znajomych</string>
+    <string name="main_profile">Profi główny</string>
+    <string name="friends_list">Lista znajomych</string>
+    <string name="choose_new_avatar">Wybierz nowe zdjęcie profilowe</string>
+    <string name="create_conversation">Stwórz konwersacje</string>
+
+</resources>
