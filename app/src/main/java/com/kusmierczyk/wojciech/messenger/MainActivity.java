@@ -1,7 +1,9 @@
 package com.kusmierczyk.wojciech.messenger;
 
 import android.app.ProgressDialog;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;

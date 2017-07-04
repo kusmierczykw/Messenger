@@ -35,15 +35,24 @@ dependencies {
     compile 'com.android.support:design:26.0.0-alpha1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
 
+    //To firebase service
     compile 'com.google.firebase:firebase-core:11.0.1'
     compile 'com.google.firebase:firebase-database:11.0.1'
     compile 'com.google.firebase:firebase-auth:11.0.1'
     compile 'com.google.firebase:firebase-storage:11.0.1'
 
+    //To FirebaseListAdapter
     compile 'com.firebaseui:firebase-ui:0.6.0'
 
+    //To circled photo
     compile 'jp.wasabeef:glide-transformations:2.0.1'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.7.2'
+
+    //To compressing of image
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'io.reactivex:rxjava:1.1.6'
+    compile 'top.zibin:Luban:1.0.8'
+
 
     testCompile 'junit:junit:4.12'
 }

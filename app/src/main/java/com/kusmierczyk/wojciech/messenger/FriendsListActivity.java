@@ -60,12 +60,8 @@ public class FriendsListActivity extends MainActivity {
                 ((ImageView) v.findViewById(R.id.user_item_user_avatar)).setImageResource(R.drawable.user);
 
                 if(model.getAvatarURL() != null && model.getAvatarURL().length() > 0){
-                    try{
-                        StorageReference mAvatarReference = FirebaseStorage.getInstance().getReference().child(model.getAvatarURL());
-                        Glide.with(v.getContext()).using(new FirebaseImageLoader()).load(mAvatarReference).bitmapTransform(new CropCircleTransformation(v.getContext())).into((ImageView) v.findViewById(R.id.user_item_user_avatar));
-                    }catch (Exception e){
-                        Log.e("Err", e.toString());
-                    }
+                    StorageReference mAvatarReference = FirebaseStorage.getInstance().getReference().child(model.getAvatarURL());
+                    Glide.with(v.getContext()).using(new FirebaseImageLoader()).load(mAvatarReference).bitmapTransform(new CropCircleTransformation(v.getContext())).into((ImageView) v.findViewById(R.id.user_item_user_avatar));
                 }
                 ((TextView)v.findViewById(R.id.user_item_username)).setText(model.getUsername());
                 ((TextView)v.findViewById(R.id.user_item_email)).setText(model.getEmail());
@@ -83,42 +79,12 @@ public class FriendsListActivity extends MainActivity {
                 conversation.setChatCreator(chatCreator);
                 conversation.setUser(((User)(adapterView.getItemAtPosition(position))));
 
-
-                conversationWasCreating(conversation, view);
-
-
-//                //TODO: PORAWIC!
-//                if(pushKey[0] == null){
-//                    //Add conversation process
-//                    DatabaseReference conversationReference = mDatabase.getReference(Constants.CONVERSATIONS_LOCATION);
-//                    DatabaseReference pushReference = conversationReference.push();
-//                    pushKey = pushReference.getKey();
-//
-//                    conversation.setConversationID(pushKey);
-//                    HashMap<String, Object> conversationItemMap = new HashMap<>();
-//                    HashMap<String, Object> conversationObject = (HashMap<String, Object>) new ObjectMapper().convertValue(conversation, Map.class);
-//
-//                    conversationItemMap.put("/"+pushKey, conversationObject);
-//                    conversationReference.updateChildren(conversationItemMap);
-//
-//                    conversationItemMap = new HashMap<>();
-//                    conversationItemMap.put("/"+Constants.CONVERSATIONS_LOCATION + "/" + pushKey, conversationObject);
-//                    mCurrentUserDatabaseReference.updateChildren(conversationItemMap);
-//
-//                    mFriendsDatabaseReference = mDatabase.getReference().child(Constants.USERS_LOCATION + "/" + encryptEmail(conversation.getUser().getEmail()));
-//                    mFriendsDatabaseReference.updateChildren(conversationItemMap);
-//
-//                    conversationItemMap = new HashMap<>();
-//                    conversationItemMap.put("/chats/" + pushKey, conversationObject);
-//                    //End of add conversation process
-//                }
-//
-
+                createOfConversation(conversation, view);
             }
         });
     }
 
-    private void conversationWasCreating(final Conversation conversation, final View view){
+    private void createOfConversation(final Conversation conversation, final View view){
         DatabaseReference mConversationReference = mDatabase.getReference(Constants.CONVERSATIONS_LOCATION);
 
         mConversationReference.addValueEventListener(new ValueEventListener() {
