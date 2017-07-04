@@ -45,27 +45,23 @@ public class FriendsFindActivity extends MainActivity{
     }
 
     private void showUsersList(){
-        showProgressDialog(R.string.loading);
         mFriendListAdapter = new FirebaseListAdapter<User>(this, User.class, R.layout.user_item, mUsersDatabaseReference) {
             @Override
             protected void populateView(final View v, final User model, int position) {
-                //TODO I don't know, why this solution doesn't work... Change it in new version of app
-//                DatabaseReference mFriendsDatabaseReference = mDatabase.getReference().child(Constants.FRIENDS_LOCATION + "/" + encryptEmail(mUser.getEmail()) + "/" + encryptEmail(model.getEmail()));
-//                dataSnapshot.getValue()...
+                //Reset of avatar after buffering image
+                ((ImageView) v.findViewById(R.id.user_item_user_avatar)).setImageResource(R.drawable.user);
 
                 final DatabaseReference mFriendsDatabaseReference = mDatabase.getReference().child(Constants.FRIENDS_LOCATION).child(encryptEmail(mUser.getEmail()));
                 mFriendsDatabaseReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if(dataSnapshot.child(encryptEmail(model.getEmail())).getValue() != null){
-//                        if(dataSnapshot.getValue() != null){
                             v.findViewById(R.id.user_item_remove_button).setVisibility(View.VISIBLE);
                             v.findViewById(R.id.user_item_add_button).setVisibility(View.GONE);
                         }else {
                             v.findViewById(R.id.user_item_remove_button).setVisibility(View.GONE);
                             v.findViewById(R.id.user_item_add_button).setVisibility(View.VISIBLE);
                         }
-                        hideProgressDialog();
                     }
 
                     @Override
@@ -120,19 +116,11 @@ public class FriendsFindActivity extends MainActivity{
         friendReference.child(encryptEmail(friendEmail)).removeValue();
     }
 
-//    private void addFriend(String newFriendEmail){
-//        final String currentUser = mAuth.getCurrentUser().getEmail();
-//        final DatabaseReference friendReference = mDatabase.getReference(Constants.FRIENDS_LOCATION + "/" + encryptEmail(currentUser));
-//        friendReference.child(encryptEmail(newFriendEmail)).setValue(newFriendEmail);
-//    }
-
-
     private void addFriend(User user){
         final String currentUser = mAuth.getCurrentUser().getEmail();
         final DatabaseReference friendReference = mDatabase.getReference(Constants.FRIENDS_LOCATION + "/" + encryptEmail(currentUser));
         friendReference.child(encryptEmail(user.getEmail())).setValue(user);
     }
-
 
     private void initialization(){
         friendsListView = (ListView) findViewById(R.id.activity_friends_find_result);

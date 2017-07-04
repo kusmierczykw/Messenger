@@ -13,9 +13,10 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/conversation_item_last_sender_avatar"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:id="@+id/conversation_item_user_avatar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+
             android:adjustViewBounds="true"
             android:cropToPadding="false"
             android:paddingBottom="10dp"
@@ -23,9 +24,9 @@
             app:srcCompat="@drawable/user" />
 
         <ImageView
-            android:id="@+id/conversation_item_user_avatar"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:id="@+id/conversation_item_last_sender_avatar"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:adjustViewBounds="true"
             android:cropToPadding="false"
             android:paddingBottom="10dp"

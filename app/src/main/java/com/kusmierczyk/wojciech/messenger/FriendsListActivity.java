@@ -53,6 +53,9 @@ public class FriendsListActivity extends MainActivity {
         mFriendListAdapter = new FirebaseListAdapter<User>(this, User.class, R.layout.user_item, mFriendsDatabaseReference) {
             @Override
             protected void populateView(final View v, final User model, int position) {
+                //Reset of avatar after buffering image
+                ((ImageView) v.findViewById(R.id.user_item_user_avatar)).setImageResource(R.drawable.user);
+
                 if(model.getAvatarURL() != null && model.getAvatarURL().length() > 0){
                     try{
                         StorageReference mAvatarReference = FirebaseStorage.getInstance().getReference().child(model.getAvatarURL());
