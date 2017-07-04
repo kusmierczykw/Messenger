@@ -138,10 +138,6 @@ public class MainProfileActivity extends MainActivity implements NavigationView.
         mConversationAdapter = new FirebaseListAdapter<Conversation>(this, Conversation.class, R.layout.conversation_item, mConversationDatabaseReference) {
             @Override
             protected void populateView(final View v, final Conversation model, int position) {
-                //Reset of avatar after buffering image
-                ((ImageView) v.findViewById(R.id.conversation_item_user_avatar)).setImageResource(R.drawable.user);
-                ((ImageView) v.findViewById(R.id.conversation_item_last_sender_avatar)).setImageResource(R.drawable.user);
-
                 if(model.getChatCreator().getEmail().equals(mUser.getEmail())){
                     ((TextView) v.findViewById(R.id.conversation_item_username)).setText(model.getUser().getUsername());
 
@@ -158,6 +154,10 @@ public class MainProfileActivity extends MainActivity implements NavigationView.
                 mMessageReference.addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                        //Reset of avatar after buffering image
+//                        userAvatar.setImageResource(R.drawable.user);
+//                        lastSenderAvatar.setImageResource(R.drawable.user);
+
                         Message newMessage = dataSnapshot.getValue(Message.class);
                         lastMessage.setText(newMessage.getMessage());
 
@@ -165,28 +165,31 @@ public class MainProfileActivity extends MainActivity implements NavigationView.
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 User messageSender = dataSnapshot.getValue(User.class);
-                                if(messageSender != null && messageSender.getAvatarURL() != null) {
-                                    try {
-                                        if(messageSender.getEmail().equals(model.getUser().getEmail())){
-//                                            Log.e(TAG, "USER: "+model.getUser().getEmail()+" CREATOR: "+model.getChatCreator().getEmail()+" SENDER: "+messageSender.getEmail());
-                                            StorageReference storageReferenceLastSender = FirebaseStorage.getInstance().getReference().child(messageSender.getAvatarURL());
-                                            Glide.with(v.getContext()).using(new FirebaseImageLoader()).load(storageReferenceLastSender).bitmapTransform(new CropCircleTransformation(v.getContext())).into(lastSenderAvatar);
 
-                                            StorageReference storageReferenceUser = FirebaseStorage.getInstance().getReference().child(model.getChatCreator().getAvatarURL());
-                                            Glide.with(v.getContext()).using(new FirebaseImageLoader()).load(storageReferenceUser).bitmapTransform(new CropCircleTransformation(v.getContext())).into(userAvatar);
+                                Log.e(TAG, messageSender.getAvatarURL());
 
-                                        }else{
-//                                            Log.e(TAG, "USER: "+model.getUser().getEmail()+" CREATOR: "+model.getChatCreator().getEmail()+" SENDER: "+messageSender.getEmail());
-                                            StorageReference storageReferenceLastSender = FirebaseStorage.getInstance().getReference().child(messageSender.getAvatarURL());
-                                            Glide.with(v.getContext()).using(new FirebaseImageLoader()).load(storageReferenceLastSender).bitmapTransform(new CropCircleTransformation(v.getContext())).into(lastSenderAvatar);
 
-                                            StorageReference storageReferenceUser = FirebaseStorage.getInstance().getReference().child(model.getUser().getAvatarURL());
-                                            Glide.with(v.getContext()).using(new FirebaseImageLoader()).load(storageReferenceUser).bitmapTransform(new CropCircleTransformation(v.getContext())).into(userAvatar);
-                                        }
-                                    }catch (Exception e){
-                                        Log.e("Err", e.toString());
-                                    }
-                                }
+
+
+//                                if(messageSender != null && messageSender.getAvatarURL() != null) {
+//                                    try {
+//                                        if(messageSender.getEmail().equals(model.getUser().getEmail())){
+//                                            StorageReference storageReferenceLastSender = FirebaseStorage.getInstance().getReference().child(messageSender.getAvatarURL());
+//                                            Glide.with(v.getContext()).using(new FirebaseImageLoader()).load(storageReferenceLastSender).bitmapTransform(new CropCircleTransformation(v.getContext())).into(lastSenderAvatar);
+//
+//                                            StorageReference storageReferenceUser = FirebaseStorage.getInstance().getReference().child(model.getChatCreator().getAvatarURL());
+//                                            Glide.with(v.getContext()).using(new FirebaseImageLoader()).load(storageReferenceUser).bitmapTransform(new CropCircleTransformation(v.getContext())).into(userAvatar);
+//                                        }else{
+//                                            StorageReference storageReferenceLastSender = FirebaseStorage.getInstance().getReference().child(model.getChatCreator().getAvatarURL());
+//                                            Glide.with(v.getContext()).using(new FirebaseImageLoader()).load(storageReferenceLastSender).bitmapTransform(new CropCircleTransformation(v.getContext())).into(lastSenderAvatar);
+//
+//                                            StorageReference storageReferenceUser = FirebaseStorage.getInstance().getReference().child(messageSender.getAvatarURL());
+//                                            Glide.with(v.getContext()).using(new FirebaseImageLoader()).load(storageReferenceUser).bitmapTransform(new CropCircleTransformation(v.getContext())).into(userAvatar);
+//                                        }
+//                                    }catch (Exception e){
+//                                        Log.e("Err", e.toString());
+//                                    }
+//                                }
                             }
 
                             @Override

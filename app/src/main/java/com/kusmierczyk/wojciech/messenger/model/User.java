@@ -39,4 +39,10 @@ public class User {
     public String getAvatarURL() {
         return avatarURL;
     }
+
+
+    @Override
+    public String toString() {
+        return "{name="+username + ":email=" + email + ":avatarURL=" + avatarURL+"}";
+    }
 }

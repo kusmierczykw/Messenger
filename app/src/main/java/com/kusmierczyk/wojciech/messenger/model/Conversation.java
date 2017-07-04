@@ -1,5 +1,7 @@
 package com.kusmierczyk.wojciech.messenger.model;
 
+import android.util.Log;
+
 import java.util.List;
 
 /**
@@ -36,6 +38,13 @@ public class Conversation {
         return user;
     }
 
+    public boolean equalsTo(Conversation obj) {
+
+        if((obj.getChatCreator().getEmail().contentEquals(chatCreator.getEmail()) && (obj.getUser().getEmail().contentEquals(user.getEmail()))) ||
+                ((obj.getChatCreator().getEmail().contentEquals(user.getEmail())) && (obj.getUser().getEmail().contentEquals(chatCreator.getEmail()))))
+                    return true;
+        return false;
+    }
 
     //TODO Methods to remove
     public void setChatCreator(User user){
@@ -43,5 +52,10 @@ public class Conversation {
     }
     public void setUser(User user){
         this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "{userCreator"+chatCreator+":user"+user+":conversationID"+conversationID+"}";
     }
 }
