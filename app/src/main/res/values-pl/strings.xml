@@ -12,15 +12,15 @@
     <string name="confirm_password">Potwierdź hasło</string>
 
     <!-- Warnings -->
-    <string name="email_address_is_incorrect">Adres e-mail jest poprawny</string>
-    <string name="password_is_too_short">Hasło jest za krótkie (minumum 6 znaków)</string>
+    <string name="email_address_is_incorrect">Adres e-mail jest niepoprawny</string>
+    <string name="password_is_too_short">Hasło jest za krótkie (minimum 6 znaków)</string>
     <string name="username_is_required">Nazwa użytkownika jest wymagana</string>
     <string name="passwords_are_different">Hasła się różnią </string>
 
     <!-- Progress dialogs text -->
     <string name="loading">Ładowanie...</string>
     <string name="loging">Logowanie trwa...</string>
-    <string name="registering">Użytkownik rejestruje się...</string>
+    <string name="registering">Użytkownik rejestruje siężytkownika...</string>
     <string name="sync_process">Proces synchronizacji danych...</string>
     <string name="loading_of_messages">Ładowanie wiadomości...</string>
 
@@ -32,9 +32,9 @@
     <string name="sign_out">Wyloguj się </string>
     <string name="signed_out_successfully">Wylogowanie zakończone pomyślnie</string>
     <string name="find_friends">Znajdź znajomych</string>
-    <string name="main_profile">Profi główny</string>
+    <string name="main_profile">Profil główny</string>
     <string name="friends_list">Lista znajomych</string>
-    <string name="choose_new_avatar">Wybierz nowe zdjęcie profilowe</string>
+    <string name="choose_new_avatar">Wybierz zdjęcie profilowe</string>
     <string name="create_conversation">Stwórz konwersacje</string>
 
 </resources>
