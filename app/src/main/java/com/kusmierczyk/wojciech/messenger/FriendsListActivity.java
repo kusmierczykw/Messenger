@@ -2,9 +2,17 @@ package com.kusmierczyk.wojciech.messenger;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.text.method.KeyListener;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,6 +32,7 @@ import com.kusmierczyk.wojciech.messenger.model.Conversation;
 import com.kusmierczyk.wojciech.messenger.model.Friend;
 import com.kusmierczyk.wojciech.messenger.model.User;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,6 +51,9 @@ public class FriendsListActivity extends MainActivity {
 
     private DatabaseReference mCurrentUserDatabaseReference;
 
+    private EditText searchField;
+    private ListView foundedUsers;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,14 +61,48 @@ public class FriendsListActivity extends MainActivity {
 
         initialization();
         showUsersList();
+//        searchEngine();
 
         setTitle(getString(R.string.friends_list));
     }
 
+//    private void searchEngine(){
+//        final ArrayList<User> arrayListOfUsers = new ArrayList<>();
+//        final ArrayAdapter<User> arrayAdapter = new ArrayAdapter<User>(this, R.layout.user_item, arrayListOfUsers);
+//
+//        foundedUsers.setAdapter(arrayAdapter);
+//
+//        searchField.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View view, MotionEvent motionEvent) {
+//                view.setFocusable(true);
+//                view.setFocusableInTouchMode(true);
+//                return false;
+//            }
+//        });
+//
+//        searchField.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//
+//            }
+//        });
+//    }
+
     private void showUsersList(){
-        mFriendListAdapter = new FirebaseListAdapter<Friend>(this, Friend.class, R.layout.user_item, mFriendsDatabaseReference) {
+        mFriendListAdapter = new FirebaseListAdapter<User>(this, User.class, R.layout.user_item, mFriendsDatabaseReference) {
             @Override
-            protected void populateView(final View v, final Friend model, int position) {
+            protected void populateView(final View v, final User model, int position) {
                 //Reset of avatar after buffering image
                 ((ImageView) v.findViewById(R.id.user_item_user_avatar)).setImageResource(R.drawable.user);
 
@@ -70,7 +116,6 @@ public class FriendsListActivity extends MainActivity {
                             StorageReference mAvatarReference = FirebaseStorage.getInstance().getReference().child(avatarURL);
                             Glide.with(v.getContext()).using(new FirebaseImageLoader()).load(mAvatarReference).bitmapTransform(new CropCircleTransformation(v.getContext())).into((ImageView) v.findViewById(R.id.user_item_user_avatar));
                         }
-
 
                         ImageView status = ((ImageView) v.findViewById(R.id.user_item_status));
 
@@ -108,7 +153,7 @@ public class FriendsListActivity extends MainActivity {
                 Log.e(TAG, position+" clicked");
                 Conversation conversation = new Conversation();
                 User chatCreator = new User(mUser.getDisplayName(), mUser.getEmail(), null);
-                Friend user = ((Friend) (adapterView.getItemAtPosition(position)));
+                User user =  (User)(adapterView.getItemAtPosition(position));
 
                 conversation.setChatCreator(chatCreator);
                 conversation.setUser(new User(user.getUsername(), user.getEmail(), null));
@@ -175,5 +220,9 @@ public class FriendsListActivity extends MainActivity {
         friendsListView = (ListView) findViewById(R.id.activity_friends_find_result);
         mFriendsDatabaseReference = mDatabase.getReference().child(Constants.FRIENDS_LOCATION).child(encryptEmail(mUser.getEmail()));
         mCurrentUserDatabaseReference = mDatabase.getReference().child(Constants.USERS_LOCATION + "/" + encryptEmail(mAuth.getCurrentUser().getEmail()));
+        searchField = (EditText) findViewById(R.id.activity_friends_username_field);
+
+
+//        foundedUsers = (ListView) findViewById(R.id.activity_friends_founded_users);
     }
 }
