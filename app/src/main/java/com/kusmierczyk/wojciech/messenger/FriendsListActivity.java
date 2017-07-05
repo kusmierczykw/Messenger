@@ -211,7 +211,7 @@ public class FriendsListActivity extends MainActivity {
         friendsListView = (ListView) findViewById(R.id.activity_friends_find_result);
         mFriendsDatabaseReference = mDatabase.getReference().child(Constants.FRIENDS_LOCATION).child(encryptEmail(mUser.getEmail()));
         mCurrentUserDatabaseReference = mDatabase.getReference().child(Constants.USERS_LOCATION + "/" + encryptEmail(mAuth.getCurrentUser().getEmail()));
-        searchField = (EditText) findViewById(R.id.activity_friends_username_field);
+//        searchField = (EditText) findViewById(R.id.activity_friends_username_field);
 
 
 //        foundedUsers = (ListView) findViewById(R.id.activity_friends_founded_users);
