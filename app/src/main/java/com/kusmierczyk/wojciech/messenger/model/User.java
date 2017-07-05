@@ -31,7 +31,7 @@ public class User {
     }
 
     public void setStatus(boolean status){
-        status = status;
+        this.status = status;
     }
 
     public boolean getStatus(){

@@ -142,14 +142,18 @@ public class MainProfileActivity extends MainActivity implements NavigationView.
         mReceiverDatabaseReference.child(encryptEmail(mUser.getEmail())).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String avatarURL = dataSnapshot.child("avatarURL").getValue().toString();
-                if(avatarURL.length() > 0) {
-                    try {
-                        StorageReference storageReferenceLastSender = FirebaseStorage.getInstance().getReference().child(avatarURL);
-                        Glide.with(header.getContext()).using(new FirebaseImageLoader()).load(storageReferenceLastSender).bitmapTransform(new CropCircleTransformation(header.getContext())).into(profilePhoto);
-                    }catch(Exception e){
-                        e.printStackTrace();
+                try {
+                    String avatarURL = dataSnapshot.child("avatarURL").getValue().toString();
+                    if (avatarURL.length() > 0) {
+                        try {
+                            StorageReference storageReferenceLastSender = FirebaseStorage.getInstance().getReference().child(avatarURL);
+                            Glide.with(header.getContext()).using(new FirebaseImageLoader()).load(storageReferenceLastSender).bitmapTransform(new CropCircleTransformation(header.getContext())).into(profilePhoto);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
+                }catch(Exception e){
+                    e.printStackTrace();
                 }
             }
 
@@ -159,8 +163,6 @@ public class MainProfileActivity extends MainActivity implements NavigationView.
     }
 
     private void syncProfile(){
-        updateUserStatus(true);
-
         Log.d(TAG, "SyncProfile:start");
         showProgressDialog(R.string.sync_process);
         mConversationDatabaseReference = mDatabase.getReference().child(Constants.USERS_LOCATION + "/"+ encryptEmail(mUser.getEmail()) + "/"+Constants.CONVERSATIONS_LOCATION);
@@ -292,15 +294,7 @@ public class MainProfileActivity extends MainActivity implements NavigationView.
         Log.d(TAG, "SyncProfile:finish");
     }
 
-    private void updateUserStatus(boolean isOnline){
-        mStatusReference = mDatabase.getReference().child(Constants.USERS_LOCATION + "/" + encryptEmail(mUser.getEmail()));
 
-        HashMap<String, Object> status = new HashMap<>();
-        status.put("status", isOnline);
-
-        mStatusReference.updateChildren(status);
-
-    }
 
     private Pair<String, String> determineWhoIsWho(String messageSender, Conversation conversation){
         String email = encryptEmail(conversation.getChatCreator().getEmail());

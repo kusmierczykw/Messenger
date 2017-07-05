@@ -76,6 +76,7 @@ public class SignInActivity extends MainActivity {
             if (task.isSuccessful()) {
                 Log.d(TAG, "signInWithEmail:success");
                 mUser = mAuth.getCurrentUser();
+                updateUserStatus(true);
                 startActivity(new Intent(SignInActivity.this, MainProfileActivity.class));
                 finish();
             } else {

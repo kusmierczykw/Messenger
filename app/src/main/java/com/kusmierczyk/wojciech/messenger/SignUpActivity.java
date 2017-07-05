@@ -148,6 +148,7 @@ public class SignUpActivity extends MainActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.getValue() == null){
                     User user = new User(username, email, null);
+                    user.setStatus(true);
                     userReference.setValue(user);
                 }
             }
