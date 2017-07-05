@@ -156,7 +156,6 @@ public class MainProfileActivity extends MainActivity implements NavigationView.
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         });
-
     }
 
     private void syncProfile(){
@@ -178,6 +177,7 @@ public class MainProfileActivity extends MainActivity implements NavigationView.
                 final ImageView senderImageView = v.findViewById(R.id.conversation_item_last_sender_avatar);
                 final ImageView receiverImageView = v.findViewById(R.id.conversation_item_user_avatar);
 
+                //Reset of avatars
                 senderImageView.setImageResource(R.drawable.user);
                 receiverImageView.setImageResource(R.drawable.user);
 
@@ -197,7 +197,6 @@ public class MainProfileActivity extends MainActivity implements NavigationView.
 
                         Pair<String, String> whoIsWho = determineWhoIsWho(newMessage.getSender(), model);
                         String sender = whoIsWho.first;
-                        String receiver = whoIsWho.second;
 
                         //Reset of avatar after buffering image
                         senderImageView.setImageResource(R.drawable.user);
@@ -220,6 +219,7 @@ public class MainProfileActivity extends MainActivity implements NavigationView.
                             public void onCancelled(DatabaseError databaseError) {}
                         });
 
+                        String receiver = whoIsWho.second;
                         //Reset of avatar after buffering image
                         receiverImageView.setImageResource(R.drawable.user);
                         //Get avatar for receiver
