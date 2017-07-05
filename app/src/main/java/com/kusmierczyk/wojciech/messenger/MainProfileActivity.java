@@ -206,14 +206,18 @@ public class MainProfileActivity extends MainActivity implements NavigationView.
                         mSenderDatabaseReference.child(sender).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                String avatarURL = dataSnapshot.child("avatarURL").getValue().toString();
-                                if(avatarURL.length() > 0) {
-                                    try {
-                                        StorageReference storageReferenceLastSender = FirebaseStorage.getInstance().getReference().child(avatarURL);
-                                        Glide.with(v.getContext()).using(new FirebaseImageLoader()).load(storageReferenceLastSender).bitmapTransform(new CropCircleTransformation(v.getContext())).into(senderImageView);
-                                    }catch (Exception e){
-                                        e.printStackTrace();
+                                try {
+                                    String avatarURL = dataSnapshot.child("avatarURL").getValue().toString();
+                                    if (avatarURL.length() > 0) {
+                                        try {
+                                            StorageReference storageReferenceLastSender = FirebaseStorage.getInstance().getReference().child(avatarURL);
+                                            Glide.with(v.getContext()).using(new FirebaseImageLoader()).load(storageReferenceLastSender).bitmapTransform(new CropCircleTransformation(v.getContext())).into(senderImageView);
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
                                     }
+                                }catch (Exception e){
+                                    e.printStackTrace();
                                 }
                             }
 
@@ -228,14 +232,18 @@ public class MainProfileActivity extends MainActivity implements NavigationView.
                         mReceiverDatabaseReference.child(receiver).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                String avatarURL = dataSnapshot.child("avatarURL").getValue().toString();
-                                if(avatarURL.length() > 0) {
-                                    try {
-                                        StorageReference storageReferenceLastSender = FirebaseStorage.getInstance().getReference().child(avatarURL);
-                                        Glide.with(v.getContext()).using(new FirebaseImageLoader()).load(storageReferenceLastSender).bitmapTransform(new CropCircleTransformation(v.getContext())).into(receiverImageView);
-                                    }catch(Exception e){
-                                        e.printStackTrace();
+                                try {
+                                    String avatarURL = dataSnapshot.child("avatarURL").getValue().toString();
+                                    if (avatarURL.length() > 0) {
+                                        try {
+                                            StorageReference storageReferenceLastSender = FirebaseStorage.getInstance().getReference().child(avatarURL);
+                                            Glide.with(v.getContext()).using(new FirebaseImageLoader()).load(storageReferenceLastSender).bitmapTransform(new CropCircleTransformation(v.getContext())).into(receiverImageView);
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
                                     }
+                                }catch (Exception e){
+                                    e.printStackTrace();
                                 }
                             }
 
