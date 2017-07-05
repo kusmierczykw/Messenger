@@ -2,7 +2,6 @@ package com.kusmierczyk.wojciech.messenger;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -141,7 +140,7 @@ public class FriendsListActivity extends MainActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 //Creating new conversation between current user and his friend
-                Log.e(TAG, position+" clicked");
+//                Log.e(TAG, position+" clicked");
                 Conversation conversation = new Conversation();
                 User chatCreator = new User(mUser.getDisplayName(), mUser.getEmail(), null);
                 User user =  (User)(adapterView.getItemAtPosition(position));

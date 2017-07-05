@@ -1,7 +1,6 @@
 package com.kusmierczyk.wojciech.messenger;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -79,7 +78,7 @@ public class FriendsFindActivity extends MainActivity{
                 (v.findViewById(R.id.user_item_remove_button)).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Log.d(TAG, "Remove user: " + model.getEmail());
+//                        Log.d(TAG, "Remove user: " + model.getEmail());
                         removeFriend(model.getEmail());
                     }
                 });
@@ -87,7 +86,7 @@ public class FriendsFindActivity extends MainActivity{
                 (v.findViewById(R.id.user_item_add_button)).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Log.d(TAG, "Add user: " + model.getEmail());
+//                        Log.d(TAG, "Add user: " + model.getEmail());
                         addFriend(model);
                     }
                 });

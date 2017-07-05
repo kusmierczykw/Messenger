@@ -1,7 +1,5 @@
 package com.kusmierczyk.wojciech.messenger.model;
 
-import android.util.Log;
-
 import java.util.List;
 
 /**

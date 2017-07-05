@@ -110,7 +110,7 @@ public class SettingsActivity extends MainActivity {
                     .subscribe(new Action1<File>() {
                         @Override
                         public void call(File file) {
-                            Log.e(TAG, file.getPath());
+//                            Log.e(TAG, file.getPath());
                             userAvatarPath.putFile(Uri.fromFile(file)).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                 @Override
                                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {

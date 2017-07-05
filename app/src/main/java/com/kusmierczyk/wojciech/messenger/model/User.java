@@ -1,7 +1,5 @@
 package com.kusmierczyk.wojciech.messenger.model;
 
-import static com.google.android.gms.internal.zznu.is;
-
 /**
  * Created by wojciech on 29.06.2017.
  */

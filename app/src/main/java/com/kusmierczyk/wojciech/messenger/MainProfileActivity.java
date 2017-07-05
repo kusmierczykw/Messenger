@@ -199,8 +199,6 @@ public class MainProfileActivity extends MainActivity implements NavigationView.
                         String sender = whoIsWho.first;
                         String receiver = whoIsWho.second;
 
-                        Log.e(TAG, sender+" "+receiver);
-
                         //Reset of avatar after buffering image
                         senderImageView.setImageResource(R.drawable.user);
                         //Get avatar for sender
