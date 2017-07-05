@@ -2,16 +2,9 @@ package com.kusmierczyk.wojciech.messenger;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.text.method.KeyListener;
 import android.util.Log;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -29,10 +22,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.kusmierczyk.wojciech.messenger.model.Constants;
 import com.kusmierczyk.wojciech.messenger.model.Conversation;
-import com.kusmierczyk.wojciech.messenger.model.Friend;
 import com.kusmierczyk.wojciech.messenger.model.User;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
